@@ -10,34 +10,41 @@ export default function CronDashboard() {
   });
 
   const addJob = async () => {
-    await fetch("https://dmn0l3ong9.execute-api.us-west-2.amazonaws.com/jobs", {
+  if (!form.name || !form.url) {
+    alert("Name and URL required");
+    return;
+  }
+
+  const res = await fetch(
+    "https://dmn0l3ong9.execute-api.us-west-2.amazonaws.com/jobs",
+    {
+      method: "POST",
       headers: {
         "Content-Type": "application/json",
-        "Authorization": "Bearer <your-aws-iam-token>",
       },
-      method: "POST",
       body: JSON.stringify({
         name: form.name,
         url: form.url,
         schedule: form.schedule,
       }),
-    })
-    if (!form.name || !form.url) {
-      alert("Name and URL required");
-      return;
     }
+  );
 
-    setJobs([
-      ...jobs,
-      {
-        id: Date.now(),
-        ...form,
-        status: "ENABLED",
-      },
-    ]);
+  const data = await res.json();
+  console.log("API RESPONSE:", data);
 
-    setForm({ name: "", url: "", schedule: "rate(10 minutes)" });
-  };
+  setJobs([
+    ...jobs,
+    {
+      id: data.jobId, 
+      ...form,
+      status: "ENABLED",
+    },
+  ]);
+
+  setForm({ name: "", url: "", schedule: "rate(10 minutes)" });
+};
+
 
   const deleteJob = (id) => {
     setJobs(jobs.filter((j) => j.id !== id));
