@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Plus, Trash2 } from "lucide-react";
-
+import axios from "axios"
 export default function CronDashboard() {
   const [jobs, setJobs] = useState([]);
   const [form, setForm] = useState({
@@ -9,7 +9,17 @@ export default function CronDashboard() {
     schedule: "rate(10 minutes)",
   });
 
-  const addJob = () => {
+  const addJob = async () => {
+    await fetch("/jobs", {
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": "Bearer <your-aws-iam-token>",
+      },
+      method: "POST",
+      data: JSON.stringify({
+        form
+      }),
+    })
     if (!form.name || !form.url) {
       alert("Name and URL required");
       return;
