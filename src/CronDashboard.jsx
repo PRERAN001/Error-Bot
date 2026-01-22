@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Plus, Trash2 } from "lucide-react";
-import axios from "axios"
+
 export default function CronDashboard() {
   const [jobs, setJobs] = useState([]);
   const [form, setForm] = useState({
