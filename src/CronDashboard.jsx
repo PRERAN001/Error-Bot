@@ -17,7 +17,9 @@ export default function CronDashboard() {
       },
       method: "POST",
       data: JSON.stringify({
-        form
+        name: form.name,
+        url: form.url,
+        schedule: form.schedule,
       }),
     })
     if (!form.name || !form.url) {
