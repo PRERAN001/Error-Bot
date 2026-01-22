@@ -10,7 +10,7 @@ export default function CronDashboard() {
   });
 
   const addJob = async () => {
-    await fetch("/jobs", {
+    await fetch("https://dmn0l3ong9.execute-api.us-west-2.amazonaws.com/jobs", {
       headers: {
         "Content-Type": "application/json",
         "Authorization": "Bearer <your-aws-iam-token>",
