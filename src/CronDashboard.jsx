@@ -16,7 +16,7 @@ export default function CronDashboard() {
         "Authorization": "Bearer <your-aws-iam-token>",
       },
       method: "POST",
-      data: JSON.stringify({
+      body: JSON.stringify({
         name: form.name,
         url: form.url,
         schedule: form.schedule,
