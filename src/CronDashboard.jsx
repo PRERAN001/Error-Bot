@@ -18,16 +18,15 @@ export default function CronDashboard() {
     }
 
     const res = await fetch(
-      "https://dmn0l3ong9.execute-api.us-west-2.amazonaws.com/jobs",
+      "https://7qr2747qi5.execute-api.ap-south-1.amazonaws.com/pord/create-cron",
       {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          name: form.name,
-          url: form.url,
-          schedule: form.schedule,
+          cron: form.schedule,
+          targetUrl: form.url
         }),
       },
     );
