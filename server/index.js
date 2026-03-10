@@ -9,24 +9,26 @@ import { rateLimit } from 'express-rate-limit';
 dotenv.config();
 
 const app = express();
+
 app.use(
   cors({
     origin: (origin, callback) => {
-      const allowed = (process.env.CLIENT_ORIGIN || 'http://localhost:5173')
-        .split(',')
+      const allowed = (process.env.CLIENT_ORIGIN || "http://localhost:5173")
+        .split(",")
         .map((o) => o.trim());
+
       if (!origin || allowed.includes(origin)) {
         callback(null, true);
       } else {
-        callback(new Error('Not allowed by CORS'));
+        callback(new Error("Not allowed by CORS"));
       }
     },
-  }),
-  credentials: true
+    credentials: true
+  })
 );
-app.use(express.json());
 
-app.options("*", cors())
+app.use(express.json());
+app.options("*", cors());
 
 // Rate limiters
 const authLimiter = rateLimit({
