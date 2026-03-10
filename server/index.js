@@ -22,8 +22,11 @@ app.use(
       }
     },
   }),
+  credentials: true
 );
 app.use(express.json());
+
+app.options("*", cors())
 
 // Rate limiters
 const authLimiter = rateLimit({
